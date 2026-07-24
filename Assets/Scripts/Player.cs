@@ -3,7 +3,7 @@ using UnityEngine;
 public class NewMonoBehaviourScript : MonoBehaviour
 {
     public float velMov;
-    public float velGiro;
+    public float velGir;
     float mov, gir;
 
     private void Update()
@@ -26,6 +26,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     void Girar()
         {
-
-        }
+        gir = Input.GetAxis("Horizontal") * velGir * Time.deltaTime;
+        transform.Rotate(0, gir, 0);
+    }
 }
