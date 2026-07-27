@@ -11,10 +11,12 @@ public class Bala : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Fronteras"))
-        {
-            Destroy(this.gameObject);
-        }
+
+        Destroy(this.gameObject);
+        /* if (col.gameObject.CompareTag("Fronteras"))
+         {
+             Destroy(this.gameObject);
+         }*/
 
     }
 }
