@@ -7,10 +7,12 @@ public class Hit : MonoBehaviour
     int saludActual;
 
     public BarraVida barraVida;
+    public GameObject imagenLose;
     void Start()
     {
         saludActual = saludMax;
         barraVida.ConfigVidaMax(saludActual);
+        imagenLose.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision col)
@@ -23,6 +25,7 @@ public class Hit : MonoBehaviour
             if (saludActual <= 0)
             {
                 Debug.Log("Te moriste :D");
+                imagenLose.SetActive(true);
             }
         }
     }

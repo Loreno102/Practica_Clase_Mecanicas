@@ -13,6 +13,7 @@ public class Tanque_2 : MonoBehaviour
 
     public GameObject bala2;
     public Transform puntoDisparo;
+    public Puntos puntos;
 
     private void Update()
     {
@@ -42,5 +43,12 @@ public class Tanque_2 : MonoBehaviour
             Instantiate(bala2, puntoDisparo.position, this.transform.rotation);
         }
 
+    }
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Bala1"))
+        {
+            puntos.SumarPuntos();
+        }
     }
 }
