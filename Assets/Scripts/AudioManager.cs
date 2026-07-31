@@ -16,8 +16,8 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else 
-        { 
+        else
+        {
             Destroy(gameObject);
         }
 
@@ -33,10 +33,28 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        
+        Play("MusicaIntro");
     }
     void Update()
     {
-        
+
+    }
+
+    public void Play(string name)
+    {
+        Audio a = Array.Find(audios, audio => audio.name == name);
+
+        if (a == null)
+        {
+            Debug.LogWarning("El nombre del archivo " + name + " no existe");
+        }
+
+        a.source.Play();
+    }
+
+    public void Stop(string name)
+    {
+        Audio a = Array.Find(audios, audio => audio.name == name); 
+        a.source.Stop();
     }
 }

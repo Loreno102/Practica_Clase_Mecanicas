@@ -19,6 +19,8 @@ public class Hit : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Bala2"))
         {
+            FindAnyObjectByType<AudioManager>().Play("ExplosionEfecto");
+
             saludActual -= 1;
             barraVida.ConfigVida(saludActual);
 

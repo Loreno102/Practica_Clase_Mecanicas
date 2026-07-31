@@ -48,6 +48,7 @@ public class Tanque_2 : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Bala1"))
         {
+            FindAnyObjectByType<AudioManager>().Play("ExplosionEfecto2");
             puntos.SumarPuntos();
         }
     }
