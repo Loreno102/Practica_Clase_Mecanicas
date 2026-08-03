@@ -7,19 +7,23 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     public Audio[] audios;
-    public static AudioManager instance;
+    //public static AudioManager instance;
+
+    public Slider volSlider;
+    float volValue;
+    float lastVolValue;
 
     public void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if (instance == null)
+        //{
+            //instance = this;
+            //DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+            //Destroy(gameObject);
+        //}
 
         foreach (Audio a in audios)
         {
@@ -33,11 +37,27 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
+        volSlider.value = PlayerPrefs.GetFloat("volumen");
+        volValue = volSlider.value;
+
         Play("MusicaIntro");
     }
     void Update()
     {
+        volValue = volSlider.value;
 
+        if (volValue != lastVolValue)
+        {
+            CambiarVolumen();
+        }
+        lastVolValue = volValue;
+    }
+
+    void CambiarVolumen()
+    {
+        AudioListener.volume = volValue;
+        PlayerPrefs.SetFloat("volumen", volValue);
+        PlayerPrefs.Save();
     }
 
     public void Play(string name)
