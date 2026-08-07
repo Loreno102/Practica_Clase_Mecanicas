@@ -63,4 +63,10 @@ MonoBehaviour:
     pitch: 0.8
     loop: 0
     source: {fileID: 0}
+  - name: Boton
+    audioFile: {fileID: 8300000, guid: be41be1710632f0469133e84042a71b9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   volSlider: {fileID: 0}

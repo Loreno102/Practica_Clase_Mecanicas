@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Menu : MonoBehaviour
 {
 
     public GameObject mainPanel;
     bool activo;
+    AudioManager audioManager;
 
     private void Start()
     {
         mainPanel.SetActive(false);
         activo = false;
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
 
     private void Update()
@@ -35,11 +38,22 @@ public class Menu : MonoBehaviour
 
     public void Jugar()
     {
-        SceneManager.LoadScene("Juego");
+        StartCoroutine(CargarEscenaConSonido("Juego"));
     }
 
     public void Intro() 
     {
-        SceneManager.LoadScene("Intro");
+        StartCoroutine(CargarEscenaConSonido("Intro"));
+    }
+
+    IEnumerator CargarEscenaConSonido(string escena)
+    {
+        if (audioManager != null)
+        {
+            audioManager.Play("Boton");
+        }
+
+        yield return null;
+        SceneManager.LoadScene(escena);
     }
 }

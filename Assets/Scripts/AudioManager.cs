@@ -37,13 +37,26 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        volSlider.value = PlayerPrefs.GetFloat("volumen");
-        volValue = volSlider.value;
+        if (volSlider != null)
+        {
+            volSlider.value = PlayerPrefs.GetFloat("volumen", volSlider.value);
+            volValue = volSlider.value;
+        }
+        else
+        {
+            volValue = PlayerPrefs.GetFloat("volumen", 1f);
+        }
 
+        CambiarVolumen();
         Play("MusicaIntro");
     }
     void Update()
     {
+        if (volSlider == null)
+        {
+            return;
+        }
+
         volValue = volSlider.value;
 
         if (volValue != lastVolValue)
@@ -67,14 +80,36 @@ public class AudioManager : MonoBehaviour
         if (a == null)
         {
             Debug.LogWarning("El nombre del archivo " + name + " no existe");
+            return;
         }
 
         a.source.Play();
     }
 
+    public void PlayLoop(string name)
+    {
+        Audio a = Array.Find(audios, audio => audio.name == name);
+
+        if (a == null)
+        {
+            Debug.LogWarning("El nombre del archivo " + name + " no existe");
+            return;
+        }
+
+        if (!a.source.isPlaying)
+        {
+            a.source.Play();
+        }
+    }
+
     public void Stop(string name)
     {
         Audio a = Array.Find(audios, audio => audio.name == name); 
+        if (a == null)
+        {
+            Debug.LogWarning("El nombre del archivo " + name + " no existe");
+            return;
+        }
         a.source.Stop();
     }
 }

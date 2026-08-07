@@ -10,6 +10,11 @@ public class Hit : MonoBehaviour
     public GameObject imagenLose;
     void Start()
     {
+        if (saludMax <= 0)
+        {
+            saludMax = 10;
+        }
+
         saludActual = saludMax;
         barraVida.ConfigVidaMax(saludActual);
         imagenLose.SetActive(false);
@@ -22,6 +27,10 @@ public class Hit : MonoBehaviour
             FindAnyObjectByType<AudioManager>().Play("ExplosionEfecto");
 
             saludActual -= 1;
+            if (saludActual < 0)
+            {
+                saludActual = 0;
+            }
             barraVida.ConfigVida(saludActual);
 
             if (saludActual <= 0)

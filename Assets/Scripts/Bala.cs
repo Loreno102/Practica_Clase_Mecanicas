@@ -3,20 +3,23 @@ using UnityEngine;
 public class Bala : MonoBehaviour
 {
     public float velMov;
+    void Start()
+    {
+        Destroy(this.gameObject, 3f);
+    }
+
     void Update()
     {
         transform.Translate(0, 0, velMov * Time.deltaTime);
-        Destroy(this.gameObject, 3f);
     }
 
     private void OnCollisionEnter(Collision col)
     {
-
         Destroy(this.gameObject);
-        /* if (col.gameObject.CompareTag("Fronteras"))
-         {
-             Destroy(this.gameObject);
-         }*/
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(this.gameObject);
     }
 }
