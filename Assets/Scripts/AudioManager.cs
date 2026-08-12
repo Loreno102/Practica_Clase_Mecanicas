@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -12,6 +13,16 @@ public class AudioManager : MonoBehaviour
     public Slider volSlider;
     float volValue;
     float lastVolValue;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += EscenaCargada;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= EscenaCargada;
+    }
 
     public void Awake()
     {
@@ -49,7 +60,33 @@ public class AudioManager : MonoBehaviour
 
         CambiarVolumen();
         Play("MusicaIntro");
+        RegistrarBotones();
     }
+
+    void EscenaCargada(Scene scene, LoadSceneMode mode)
+    {
+        RegistrarBotones();
+    }
+
+    void RegistrarBotones()
+    {
+        Button[] botones = FindObjectsByType<Button>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None
+        );
+
+        foreach (Button boton in botones)
+        {
+            boton.onClick.RemoveListener(ReproducirBoton);
+            boton.onClick.AddListener(ReproducirBoton);
+        }
+    }
+
+    void ReproducirBoton()
+    {
+        Play("Boton");
+    }
+
     void Update()
     {
         if (volSlider == null)

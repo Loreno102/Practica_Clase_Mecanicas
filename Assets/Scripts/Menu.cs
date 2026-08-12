@@ -48,12 +48,7 @@ public class Menu : MonoBehaviour
 
     IEnumerator CargarEscenaConSonido(string escena)
     {
-        if (audioManager != null)
-        {
-            audioManager.Play("Boton");
-        }
-
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         SceneManager.LoadScene(escena);
     }
 }
