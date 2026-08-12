@@ -77,9 +77,29 @@ public class AudioManager : MonoBehaviour
 
         foreach (Button boton in botones)
         {
+            if (TieneEventoDeMenu(boton))
+            {
+                continue;
+            }
+
             boton.onClick.RemoveListener(ReproducirBoton);
             boton.onClick.AddListener(ReproducirBoton);
         }
+    }
+
+    bool TieneEventoDeMenu(Button boton)
+    {
+        for (int i = 0; i < boton.onClick.GetPersistentEventCount(); i++)
+        {
+            UnityEngine.Object target = boton.onClick.GetPersistentTarget(i);
+
+            if (target is Menu || target is IntroMenu)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void ReproducirBoton()
