@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -31,19 +32,30 @@ public class MeshGenerator : MonoBehaviour
     float alturaMinTerreno;
     float alturaMaxTerreno;
 
+    public GameObject[] objetos;
+    public int cantidadObjetos = 1;
+
+    Vector3 posPlayer;
+    Vector3 posEnemigo;
+
+    public GameObject tanquePlayer;
+    public GameObject tanqueEnemigo;
+
     private void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         meshCollider = GetComponent<MeshCollider>();
 
-        //CrearMalla();
-        //RefrescarMalla();
+        CrearMalla();
+        RefrescarMalla();
+        CrearObjetos();
+        PosicionarTanques();
     }
     private void Update()
     {
-        CrearMalla();
-        RefrescarMalla();
+        //CrearMalla();
+        //RefrescarMalla();
     }
     void CrearMalla()
     {
@@ -92,6 +104,18 @@ public class MeshGenerator : MonoBehaviour
             vert++;
         }
 
+        colores = new Color[vertices.Length];
+        
+        for(int i = 0, z = 0; z <= tamanoZ; z++)
+        {
+            for ( int x =0; x <= tamanoX; x++)
+            {
+                float altura = Mathf.InverseLerp(alturaMinTerreno, alturaMaxTerreno, vertices[i].y);
+                colores[i] = gradiente.Evaluate(altura);
+                i++;
+            }
+        }
+
     }
     void RefrescarMalla()
     {
@@ -101,5 +125,27 @@ public class MeshGenerator : MonoBehaviour
         mesh.colors = colores;
         mesh.RecalculateNormals();
         meshCollider.sharedMesh = mesh; 
+    }
+
+    void CrearObjetos()
+    {
+        for (int i = 0; i < cantidadObjetos; i++)
+        {
+            Instantiate(objetos[Random.Range(0, objetos.Length)],
+                vertices[Random.Range(0, vertices.Length)] + new Vector3(0, 2f, 0),
+                Quaternion.Euler(Vector3.up * Random.Range(0, 360)));
+
+        }
+    }
+
+    void PosicionarTanques()
+    {
+        posPlayer = vertices[Random.Range(0, vertices.Length)] + new Vector3(0, 2f, 0);
+        posEnemigo = vertices[Random.Range(0, vertices.Length)] + new Vector3(0, 2f, 0);
+
+        tanquePlayer.transform.position = posPlayer;
+        tanqueEnemigo.transform.position = posEnemigo;
+
+
     }
 }
