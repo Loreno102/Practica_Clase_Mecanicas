@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Hit : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class Hit : MonoBehaviour
 
     public BarraVida barraVida;
     public GameObject imagenLose;
+    public string escenaDerrota = "Derrota";
     void Start()
     {
         if (saludMax <= 0)
@@ -16,8 +17,15 @@ public class Hit : MonoBehaviour
         }
 
         saludActual = saludMax;
-        barraVida.ConfigVidaMax(saludActual);
-        imagenLose.SetActive(false);
+        if (barraVida != null)
+        {
+            barraVida.ConfigVidaMax(saludActual);
+        }
+
+        if (imagenLose != null)
+        {
+            imagenLose.SetActive(false);
+        }
     }
 
     private void OnCollisionEnter(Collision col)
@@ -31,12 +39,20 @@ public class Hit : MonoBehaviour
             {
                 saludActual = 0;
             }
-            barraVida.ConfigVida(saludActual);
+            if (barraVida != null)
+            {
+                barraVida.ConfigVida(saludActual);
+            }
 
             if (saludActual <= 0)
             {
                 Debug.Log("Te moriste :D");
-                imagenLose.SetActive(true);
+                if (imagenLose != null)
+                {
+                    imagenLose.SetActive(true);
+                }
+
+                SceneManager.LoadScene(escenaDerrota);
             }
         }
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Puntos : MonoBehaviour
@@ -7,20 +8,35 @@ public class Puntos : MonoBehaviour
     int puntaje;
     public int puntajeMaximo = 10;
     public GameObject winImagen;
+    public string escenaVictoria = "Victoria";
+
+    public int PuntajeActual
+    {
+        get { return puntaje; }
+    }
+
     void Start()
     {
         textosPuntos.text = "Puntaje: " + puntaje.ToString() + " / " + puntajeMaximo.ToString();
         winImagen.SetActive(false);
     }
 
-    public void SumarPuntos()
+    public bool SumarPuntos()
     {
         puntaje += 1;
         textosPuntos.text = "Puntaje: " + puntaje.ToString() + " / " + puntajeMaximo.ToString();
 
         if (puntaje >= puntajeMaximo)
         {
-            winImagen.SetActive(true);
+            if (winImagen != null)
+            {
+                winImagen.SetActive(true);
+            }
+
+            SceneManager.LoadScene(escenaVictoria);
+            return true;
         }
+
+        return false;
     }
 }
