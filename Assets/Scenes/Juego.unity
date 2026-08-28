@@ -5024,10 +5024,9 @@ MonoBehaviour:
   accidentesY: 4
   accidentesZ: 0.0559
   objetos:
-  - {fileID: 6075117965628667735, guid: 8c0a6d380d293634184e3f4d615292b1, type: 3}
-  - {fileID: 2601184155447755344, guid: 048602a0bd3236443a8fba83f88f73ce, type: 3}
-  - {fileID: 4975041743974524248, guid: f165bedb06d6a9d41ac3eb7bba9d64f5, type: 3}
-  cantidadObjetos: 10
+  - {fileID: 4570261071131785281, guid: ec5a4fbfaea7fdd4bb44ac5d0d3ca7ed, type: 3}
+  - {fileID: 590492392173918623, guid: 5d55ca3724124464d9e6ab3974833204, type: 3}
+  cantidadObjetos: 15
   cantidadPuntosPatrullaje: 5
   tanquePlayer: {fileID: 808086160}
   tanqueEnemigo: {fileID: 618514388}
